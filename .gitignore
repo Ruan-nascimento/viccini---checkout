@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+public
+GUIA_RAPIDO.md
+README.md
