@@ -15,7 +15,7 @@ export const createPix = async (req: Request, res: Response) => {
 
         const pixQrCodeData = {
             amount: amountNumber,
-            expiresIn: 60 * 60 * 24,
+            expiresIn: 60 * 60 * 5,
             description: `Pagamento de Produto - ${amountNumber}`,
         }
 
