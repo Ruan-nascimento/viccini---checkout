@@ -1,26 +1,38 @@
 import { Router } from 'express';
-import { createCustomer, getCustomers } from './customer';
-import { createBilling, getBilling } from './billing';
-import { checkPix, createPix } from './pix';
+import { validateRequest } from '../middlewares/validateRequest';
+import { createCustomerSchema } from '../schemas/customer.schema';
+import { createBillingSchema } from '../schemas/billing.schema';
+import { checkPixSchema, createPixSchema } from '../schemas/pix.schema';
+import { AbacateController } from '../controllers/abacate.controller';
 
 const router = Router();
 
-// POST /api/create-customer
-router.post('/create-customer', createCustomer);
+// Clientes
+router.post(
+    '/create-customer',
+    validateRequest(createCustomerSchema),
+    AbacateController.createCustomer
+);
+router.get('/get-customers', AbacateController.listCustomer);
 
-// GET /api/get-customers
-router.get('/get-customers', getCustomers);
+// Cobranças
+router.post(
+    '/create-billing',
+    validateRequest(createBillingSchema),
+    AbacateController.createBilling
+);
+router.get('/get-billing', AbacateController.listBilling);
 
-// POST /api/create-billing
-router.post('/create-billing', createBilling);
-
-// GET /api/get-billing
-router.get('/get-billing', getBilling);
-
-// POST /api/create-pix
-router.post('/create-pix', createPix);
-
-// GET /api/check-pix/:id
-router.get('/check-pix/:id', checkPix);
+// PIX
+router.post(
+    '/create-pix',
+    validateRequest(createPixSchema),
+    AbacateController.createPix
+);
+router.get(
+    '/check-pix/:id',
+    validateRequest(checkPixSchema),
+    AbacateController.listPix
+);
 
 export default router;
